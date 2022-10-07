@@ -1,17 +1,17 @@
 ---
 slug: step1
-id: fzhnqixxlhiy
+id: ppdb3myr3oy2
 type: challenge
-title: Enable ACM
+title: Enable ACS
 notes:
 - type: text
   contents: |-
-    In this learning module, we cover enabling ACM and the following Concepts:
+    In this learning module, we cover enabling ACS and the following Concepts:
 
     * Create the required Namespace.
-    * Install the ACM Operator.
+    * Install the ACS Operator.
     * Provision the Custom Resource.
-    * Access the ACM console.
+    * Access the ACS console.
 
     Let's begin!
 tabs:
@@ -50,7 +50,7 @@ Switch to new namespace called `open-cluster-management`:
 oc project open-cluster-management
 ```
 
-Let's now create the OperatorGroup for ACM:
+Let's now create the OperatorGroup for ACS:
 
 ```
 oc create -f https://raw.githubusercontent.com/waynedovey/instruqt-advanced-cluster-management/main/01-step1/content/operator-group.yaml
@@ -85,7 +85,7 @@ Decrypt the Pull secret with Ansible Vault (***Password Supplied by Red Hat Admi
 ansible-vault decrypt /root/pull-secret.txt
 ```
 
-Create the Password for ACM
+Create the Password for ACS
 
 ```
 oc create secret generic pull-secret \
@@ -113,7 +113,7 @@ The Status should change from "Installing" to Runnng"
 
 Press "Control+C" to Break Loop
 
-Get the Route for the ACM Service and Navigate to this:
+Get the Route for the ACS Service and Navigate to this:
 
 Login with admin/admin
 

@@ -1,14 +1,14 @@
 ---
 slug: step2
-id: ftiwbxv0fmlr
+id: q63htstipwm9
 type: challenge
 title: Cluster Management
 notes:
 - type: text
   contents: |-
-    In the next learning module, we cover enabling ACM and the following Concepts:
+    In the next learning module, we cover enabling ACS and the following Concepts:
 
-    * Create the ACM Managed Cluster instances from the ACM Hub
+    * Create the ACS Managed Cluster instances from the ACS Hub
     * Deploy the required import secrets and Kube config
     * Provision the Import files to the managed clusters
     * Verify the import and start managing the clusters
@@ -22,7 +22,7 @@ tabs:
   type: code
   hostname: container
   path: /root
-- title: ACM Hub Console
+- title: ACS Hub Console
   type: website
   url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
@@ -33,7 +33,7 @@ tabs:
 difficulty: advanced
 timelimit: 6000
 ---
-Connect to ACM Hub:
+Connect to ACS Hub:
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true

@@ -1,14 +1,14 @@
 ---
 slug: step5
-id: sctxdux1axjs
+id: ykhmzlr9onjx
 type: challenge
 title: Advanced Policy Management
 notes:
 - type: text
   contents: |-
-    In the next learning module, we cover Advanced Policy Management with ACM and the following Concepts:
+    In the next learning module, we cover Advanced Policy Management with ACS and the following Concepts:
 
-    * Create an example MySQL Application using GitOps and ACM
+    * Create an example MySQL Application using GitOps and ACS
     * Ensure there is a matching Prod PlacementRule
     * Implement a custom LimitRange to ensure namespace Limits
     * Review both managed Clusters
@@ -22,14 +22,14 @@ tabs:
   type: code
   hostname: container
   path: /root
-- title: ACM Hub Console
+- title: ACS Hub Console
   type: website
   url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: basic
 timelimit: 6000
 ---
-Connect to ACM Hub:
+Connect to ACS Hub:
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true

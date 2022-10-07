@@ -1,17 +1,17 @@
 ---
 slug: step4
-id: kiyiwsdbpyod
+id: 3hyilevysdjg
 type: challenge
 title: Cluster Governance
 notes:
 - type: text
   contents: |-
-    In the next learning module, we cover basic cluster governance with ACM and the following Concepts:
+    In the next learning module, we cover basic cluster governance with ACS and the following Concepts:
 
     * Explore Governance option for multiple clusters
     * Download and deploy multiple policies
     * Modify and understand the policy structure and features
-    * Apply these policies to the ACM Hub
+    * Apply these policies to the ACS Hub
     * Review the managed cluster for the results
 
     Let's begin!
@@ -23,7 +23,7 @@ tabs:
   type: code
   hostname: container
   path: /root
-- title: ACM Hub Console
+- title: ACS Hub Console
   type: website
   url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
@@ -89,7 +89,7 @@ Review and Ensure the saved icon is clicked once edited as shown here
 
 ![perspective-toggle](../assets/savework.png)
 
-Connect to ACM Hub again:
+Connect to ACS Hub again:
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 ```
@@ -202,7 +202,7 @@ Review and Ensure the saved icon is clicked once edited as shown here
 
 ![perspective-toggle](../assets/savework.png)
 
-Connect to ACM Hub:
+Connect to ACS Hub:
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 ```

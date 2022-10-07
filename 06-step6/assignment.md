@@ -1,14 +1,14 @@
 ---
 slug: step6
-id: v2juyihs5qbn
+id: nhwmdrfvtphg
 type: challenge
 title: Enable Application Ingress
 notes:
 - type: text
   contents: |-
-    In the last learning module, we cover Application Ingress with ACM and the following Concepts:
+    In the last learning module, we cover Application Ingress with ACS and the following Concepts:
 
-    * Create an example Wordpress Application using GitOps and ACM
+    * Create an example Wordpress Application using GitOps and ACS
     * Ensure there is a matching Prod PlacementRule
     * Enable Cluster Ingress
     * Review both managed Clusters
@@ -33,14 +33,14 @@ tabs:
   hostname: spoke2
   path: /
   port: 31500
-- title: ACM Hub Console
+- title: ACS Hub Console
   type: website
   url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: advanced
 timelimit: 6000
 ---
-Connect to ACM Hub:
+Connect to ACS Hub:
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true

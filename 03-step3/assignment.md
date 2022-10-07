@@ -1,17 +1,17 @@
 ---
 slug: step3
-id: nwdlnze5iicz
+id: 2v4vxnlrnoer
 type: challenge
 title: Application Lifecycle
 notes:
 - type: text
   contents: |-
-    In the next learning module, we cover Application management with ACM and the following Concepts:
+    In the next learning module, we cover Application management with ACS and the following Concepts:
 
     * Label the Managed Clusters with the appropriate "Role"
     * Clone an example application (GitOps)
     * Deploy the example applicaton
-    * Review the application has been deployed using the ACM GitOps Controller
+    * Review the application has been deployed using the ACS GitOps Controller
 
     Let's begin!
 tabs:
@@ -22,7 +22,7 @@ tabs:
   type: code
   hostname: container
   path: /root
-- title: ACM Hub Console
+- title: ACS Hub Console
   type: website
   url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
@@ -45,7 +45,7 @@ tabs:
 difficulty: basic
 timelimit: 6000
 ---
-Connect to ACM Hub:
+Connect to ACS Hub:
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
