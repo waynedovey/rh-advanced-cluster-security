@@ -1,6 +1,6 @@
 ---
 slug: step1
-id: ppdb3myr3oy2
+id: ufvdogcc4guu
 type: challenge
 title: Enable ACS
 notes:
@@ -27,7 +27,7 @@ tabs:
   path: /root
 - title: Hub Web Console
   type: website
-  url: https://console-openshift-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://console-openshift-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: advanced
 timelimit: 6000
@@ -38,28 +38,28 @@ Let's begin by connecting to OpenShift:
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 ```
 
-Create a new namespace called `open-cluster-management`:
+Create a new namespace called `acs`:
 
 ```
-oc create namespace open-cluster-management
+oc create namespace acs
 ```
 
-Switch to new namespace called `open-cluster-management`:
+Switch to new namespace called `acs`:
 
 ```
-oc project open-cluster-management
+oc project acs
 ```
 
 Let's now create the OperatorGroup for ACS:
 
 ```
-oc create -f https://raw.githubusercontent.com/waynedovey/instruqt-advanced-cluster-management/main/01-step1/content/operator-group.yaml
+oc create -f https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/01-step1/content/operator-group.yaml
 ```
 
 Then create the Subscription:
 
 ```
-oc create -f https://raw.githubusercontent.com/waynedovey/instruqt-advanced-cluster-management/main/01-step1/content/acm-operator-subscription.yaml
+oc create -f https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/01-step1/content/acs-operator-subscription.yaml
 ```
 
 Wait until the Subscription is Installed:
@@ -77,7 +77,7 @@ Press "Control+C" to Break Loop
 
 Get the Pull Secret
 ```
-curl -s https://raw.githubusercontent.com/waynedovey/instruqt-advanced-cluster-management/main/01-step1/content/pull-secret.txt -o /root/pull-secret.txt
+curl -s https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/01-step1/content/pull-secret.txt -o /root/pull-secret.txt
 ```
 
 Decrypt the Pull secret with Ansible Vault (***Password Supplied by Red Hat Admin***)
@@ -97,7 +97,7 @@ oc create secret generic pull-secret \
 Finally enable the Custom Resource:
 
 ```
-oc create -f https://raw.githubusercontent.com/waynedovey/instruqt-advanced-cluster-management/main/01-step1/content/custom-resource.yaml
+oc create -f https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/01-step1/content/custom-resource.yaml
 ```
 
 Check for the status of the Operator Installation (Can take up to 10min):

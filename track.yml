@@ -1,5 +1,5 @@
 slug: rh-advanced-cluster-security
-id: zqkycddkywga
+id: bhhgvyfoweiy
 title: Red Hat Advanced Cluster Security
 teaser: An introduction to Red Hat Advanced Cluster Security for Kubernetes
 description: |-
@@ -13,4 +13,4 @@ developers:
 - wdovey@redhat.com
 private: true
 published: false
-checksum: "5520067538789701472"
+checksum: "16565134128271431213"

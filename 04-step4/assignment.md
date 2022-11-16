@@ -1,6 +1,6 @@
 ---
 slug: step4
-id: 3hyilevysdjg
+id: wyufm7ecioj2
 type: challenge
 title: Cluster Governance
 notes:
@@ -25,11 +25,11 @@ tabs:
   path: /root
 - title: ACS Hub Console
   type: website
-  url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://multicloud-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 - title: Hub OCP Console
   type: website
-  url: https://console-openshift-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://console-openshift-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: advanced
 timelimit: 6000

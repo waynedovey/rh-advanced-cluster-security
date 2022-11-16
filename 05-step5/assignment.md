@@ -1,6 +1,6 @@
 ---
 slug: step5
-id: ykhmzlr9onjx
+id: uf4dzxrpgbif
 type: challenge
 title: Advanced Policy Management
 notes:
@@ -24,7 +24,7 @@ tabs:
   path: /root
 - title: ACS Hub Console
   type: website
-  url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://multicloud-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: basic
 timelimit: 6000

@@ -3,12 +3,24 @@
 
 #dnf install -y procps-ng iputils bind-utils tree make automake gcc gcc-c++
 
-dnf install -y procps-ng iputils bind-utils ansible git python3-pip
+# Centos Bug
 
+sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+
+dnf clean all
+dnf makecache
+dnf install -y epel-release
+dnf install -y procps-ng iputils bind-utils git python3-pip ansible wget unzip jq
+
+pip3 install --upgrade pip
+#pip3 install ansible
 ansible-galaxy collection install community.kubernetes
 pip3 install kubernetes
 pip3 install openshift
 pip3 install jmespath
+
+git clone https://github.com/rcarrata/devsecops-demo.git /root/devsecops-demo
 
 crc=`nslookup crc |  awk -F': ' 'NR==6 { print $2 } '`
 #spoke=`nslookup spoke |  awk -F': ' 'NR==6 { print $2 } '`

@@ -1,6 +1,6 @@
 ---
 slug: step6
-id: nhwmdrfvtphg
+id: mgsgris6xyae
 type: challenge
 title: Enable Application Ingress
 notes:
@@ -35,7 +35,7 @@ tabs:
   port: 31500
 - title: ACS Hub Console
   type: website
-  url: https://multicloud-console.crc-dzk9v-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://multicloud-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: advanced
 timelimit: 6000

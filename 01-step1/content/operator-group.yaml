@@ -4,4 +4,4 @@ metadata:
   name: openshift-operators
 spec:
   targetNamespaces:
-  - open-cluster-management
+  - acs
