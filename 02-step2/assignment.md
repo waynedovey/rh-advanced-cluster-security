@@ -22,195 +22,91 @@ tabs:
   type: code
   hostname: container
   path: /root
-- title: ACS Hub Console
+- title: ACS Console
   type: website
-  url: https://multicloud-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
+  url: https://central-acs.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
-- title: Hub OCP Console
+- title: OCP Web Console
   type: website
   url: https://console-openshift-console.crc-lgph7-master-0.crc.${_SANDBOX_ID}.instruqt.io
   new_window: true
 difficulty: advanced
 timelimit: 6000
 ---
-Connect to ACS Hub:
+Login to the ACS Console with
+
+admin/admin
+
+![perspective-toggle](../assets/acs-login-console.png)
+
+Login to the ACS Cluster
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 ```
 
-# Start the Import for spoke1 Cluster
+###TODO ADD the TOKEN##
+
+
+Export the ACS Central Route
+
+```
+ROX_CENTRAL_ADDRESS=$(oc get route -n acs | awk '{print $2}' | grep -v HOST | head -n 1)
+```
+
+Start the management of Spoke1
+
 ```
 export CLUSTER_NAME=spoke1
 ```
 
-Create a project with the Cluster name
+Enable the RHACS Helm Charts
+
 ```
-oc new-project ${CLUSTER_NAME}
+helm repo add rhacs https://mirror.openshift.com/pub/rhacs/charts/
 ```
 
-Ensure there are namespace labels
+Create the Init Bundle for Spoke1
+
 ```
-oc label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
+roxctl -e "$ROX_CENTRAL_ADDRESS:443" --token-file=TOKEN.txt central init-bundles generate ${CLUSTER_NAME} --output ${CLUSTER_NAME}_init_bundle.yaml --insecure-skip-tls-verify=true
 ```
 
-Create and import the Required artifacts
-```
-cat <<EOF | oc apply -n ${CLUSTER_NAME} -f -
-apiVersion: cluster.open-cluster-management.io/v1
-kind: ManagedCluster
-metadata:
-  name: ${CLUSTER_NAME}
-spec:
-  hubAcceptsClient: true
-EOF
-```
-```
-cat <<EOF | oc apply -n ${CLUSTER_NAME} -f -
-apiVersion: agent.open-cluster-management.io/v1
-kind: KlusterletAddonConfig
-metadata:
-  name: ${CLUSTER_NAME}
-  namespace: ${CLUSTER_NAME}
-spec:
-  clusterName: ${CLUSTER_NAME}
-  clusterNamespace: ${CLUSTER_NAME}
-  applicationManager:
-    enabled: true
-  certPolicyController:
-    enabled: true
-  clusterLabels:
-    cloud: auto-detect
-    vendor: auto-detect
-  iamPolicyController:
-    enabled: true
-  policyController:
-    enabled: true
-  searchCollector:
-    enabled: true
-EOF
-```
+Login to the Spoke1 cluster
 
-Export the CRD and Secret required
-```
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > /root/${CLUSTER_NAME}-klusterlet-crd.yaml
-```
-```
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > /root/${CLUSTER_NAME}-import.yaml
-```
-
-Login into the Managed cluster
 ```
 oc login --token=superSecur3T0ken --server=http://${CLUSTER_NAME}:8001
 ```
 
-Import the CRD and Secret required
-```
-kubectl apply -f /root/${CLUSTER_NAME}-klusterlet-crd.yaml
-```
-```
-kubectl apply -f /root/${CLUSTER_NAME}-import.yaml
-```
-
-# Start the Import for spoke2 Cluster
+Install the ACS service on Spoke1
 
 ```
-oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
+helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true
 ```
+
+
+Start the management of Spoke2
 
 ```
 export CLUSTER_NAME=spoke2
 ```
-Create a project with the Cluster name
+
+Create the Init Bundle for Spoke2
+
 ```
-oc new-project ${CLUSTER_NAME}
+roxctl -e "$ROX_CENTRAL_ADDRESS:443" --token-file=TOKEN.txt central init-bundles generate ${CLUSTER_NAME} --output ${CLUSTER_NAME}_init_bundle.yaml --insecure-skip-tls-verify=true
 ```
 
-Ensure there are namespace labels
-```
-oc label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
-```
+Login to the Spoke2 cluster
 
-Create and import the Required artifacts
-```
-cat <<EOF | oc apply -n ${CLUSTER_NAME} -f -
-apiVersion: cluster.open-cluster-management.io/v1
-kind: ManagedCluster
-metadata:
-  name: ${CLUSTER_NAME}
-spec:
-  hubAcceptsClient: true
-EOF
-```
-```
-cat <<EOF | oc apply -n ${CLUSTER_NAME} -f -
-apiVersion: agent.open-cluster-management.io/v1
-kind: KlusterletAddonConfig
-metadata:
-  name: ${CLUSTER_NAME}
-  namespace: ${CLUSTER_NAME}
-spec:
-  clusterName: ${CLUSTER_NAME}
-  clusterNamespace: ${CLUSTER_NAME}
-  applicationManager:
-    enabled: true
-  certPolicyController:
-    enabled: true
-  clusterLabels:
-    cloud: auto-detect
-    vendor: auto-detect
-  iamPolicyController:
-    enabled: true
-  policyController:
-    enabled: true
-  searchCollector:
-    enabled: true
-EOF
-```
-
-Export the CRD and Secret required
-```
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > /root/${CLUSTER_NAME}-klusterlet-crd.yaml
-```
-```
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > /root/${CLUSTER_NAME}-import.yaml
-```
-
-Login into the Managed cluster
 ```
 oc login --token=superSecur3T0ken --server=http://${CLUSTER_NAME}:8001
 ```
 
-Import the CRD and Secret required
-```
-kubectl apply -f /root/${CLUSTER_NAME}-klusterlet-crd.yaml
-```
-```
-kubectl apply -f /root/${CLUSTER_NAME}-import.yaml
-```
-
-
-Validate both Clusters are imported
+Install the ACS service on Spoke2
 
 ```
-oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
-```
-
-```
-cm get clusters
-```
-
-After about 1 min...
-
-Spoke1 and Spoke2 should be registered
-
-```
-  JOINED=True
-```
-
-Cleanup a few things
-```
-rm -fr *.txt *.yaml
+helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true
 ```
 
 Completed, move onto the next assignment.
