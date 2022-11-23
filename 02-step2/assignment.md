@@ -39,14 +39,37 @@ admin/admin
 
 ![perspective-toggle](../assets/acs-login-console.png)
 
-Login to the ACS Cluster
+Go to "Platform Configuration" in the Menu, then select "Integrations"
+
+![perspective-toggle](../assets/acs-gen-token-p1.png)
+
+Next, scroll to the bottom of "Integrations" and look for "Authentication Tokens"
+
+Click on the "API Token" Box
+
+![perspective-toggle](../assets/acs-gen-token-p2.png)
+
+On the right select "Generate token"
+
+![perspective-toggle](../assets/acs-gen-token-p3.png)
+
+Now Create the Token with the appropriate name and select the "Admin" Role and select "Generate"
+
+![perspective-toggle](../assets/acs-gen-token-p4.png)
+
+Copy the Token as seen in this Example and create a /root/TOKEN.txt file
+
+Use either the "Work Terminal 1" or the "Visual Editor" and save the file
+
+![perspective-toggle](../assets/acs-gen-token-p5.png)
+![perspective-toggle](../assets/acs-gen-token-p6.png)
+![perspective-toggle](../assets/acs-gen-token-p7.png)
+
+Next, Login to the ACS Cluster
 
 ```
 oc login -u admin -p admin https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 ```
-
-###TODO ADD the TOKEN##
-
 
 Export the ACS Central Route
 
