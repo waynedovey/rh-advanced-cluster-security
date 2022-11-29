@@ -77,6 +77,15 @@ Export the ACS Central Route
 ROX_CENTRAL_ADDRESS=$(oc get route -n acs | awk '{print $2}' | grep -v HOST | head -n 1)
 ```
 
+Get the Roxctl Binary
+
+```
+curl https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/assets/roxctl -o /usr/local/bin/roxctl
+```
+```
+chmod a+x /usr/local/bin/roxctl
+```
+
 Start the management of Spoke1
 
 ```
@@ -104,9 +113,13 @@ oc login --token=superSecur3T0ken --server=http://${CLUSTER_NAME}:8001
 Install the ACS service on Spoke1
 
 ```
-helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true
+helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true --set env.offlineMode=true --set image.registry=quay.io/wdovey/advanced-cluster-security
 ```
 
+Show the installed Pods
+```
+oc get pods -n stackrox
+```
 
 Start the management of Spoke2
 
@@ -129,7 +142,22 @@ oc login --token=superSecur3T0ken --server=http://${CLUSTER_NAME}:8001
 Install the ACS service on Spoke2
 
 ```
-helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true
+helm install -n stackrox --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services -f ${CLUSTER_NAME}_init_bundle.yaml --set clusterName=$CLUSTER_NAME --set centralEndpoint=$ROX_CENTRAL_ADDRESS:443 --set imagePullSecrets.allowNone=true --set env.offlineMode=true --set image.registry=quay.io/wdovey/advanced-cluster-security
 ```
+
+Show the installed Pods
+```
+oc get pods -n stackrox
+```
+
+Now review the fully mananged Kuberentes Clusters with RHACS on the ACS Console
+
+Go to "Platform Configuration" in the Menu, then select "Clusters"
+
+![perspective-toggle](../assets/acs-review-clusters-p1.png)
+
+You should now see both clusters Healthy and fully imported with all Green Ticks
+
+![perspective-toggle](../assets/acs-review-clusters-p2.png)
 
 Completed, move onto the next assignment.
