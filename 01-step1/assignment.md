@@ -2,16 +2,17 @@
 slug: step1
 id: ufvdogcc4guu
 type: challenge
-title: Enable ACS
+title: Enable RHACS
 notes:
 - type: text
   contents: |-
-    In this learning module, we cover enabling ACS and the following Concepts:
+    In this learning module, we cover enabling RHACS and the following Concepts:
 
     * Create the required Namespace.
-    * Install the ACS Operator.
+    * Install the RHACS Operator.
+    * Enable a Custom admin user.
     * Provision the Custom Resource.
-    * Access the ACS console.
+    * Access the RHACS console.
 
     Let's begin!
 tabs:
@@ -47,7 +48,7 @@ Switch to new namespace called `acs`:
 oc project acs
 ```
 
-Let's now create the OperatorGroup for ACS:
+Let's now create the OperatorGroup for RHACS:
 
 ```
 oc create -f https://raw.githubusercontent.com/waynedovey/rh-advanced-cluster-security/main/01-step1/content/operator-group.yaml
@@ -148,7 +149,7 @@ The Status should be "installed"
 
 Press "Control+C" to Break Loop
 
-Get the Route for the ACS Service and Navigate to this:
+Get the Route for the RHACS Service and Navigate to this:
 
 Login with admin/admin
 
